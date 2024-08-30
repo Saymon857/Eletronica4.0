@@ -1,10 +1,22 @@
+/******************************************************************************
+
+Autor: Saymon Andrade de Oliveira
+Data: 29/08/2024
+Modulo: Lógica de programaçâo 
+Curso: Eletrônica 4.0
+Local: INDT
+
+
+
+*******************************************************************************/
+
 #include <stdio.h>
 
 int main(void)
 {
     float km, miles;
     miles = 10,0;
-    km = miles * 1.1609;
+    km = miles * 1.609;
     print("%f mile equale %f kilometer\n", miles, km)
     return 0;
 }
