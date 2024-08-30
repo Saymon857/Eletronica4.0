@@ -1,0 +1,24 @@
+/******************************************************************************
+
+/* Autor: Saymon Andrade de Oliveira
+Data: 29/08/2024
+Modulo: Lógica de programaçâo 
+Curso: Eletrônica 4.0
+Local: INDT
+
+
+
+*******************************************************************************/
+
+#include <stdio.h>
+
+int main(void)
+{
+    float km, milhas;
+    
+    printf("Entre com o número de milhas:");
+    scanf("%f%*c",&milhas);
+    km = milhas * 1.1609;
+    printf("%f milhas iguais a %f quilomêtros\n", milhas, km);
+    return 0;
+}
