@@ -12,7 +12,8 @@ Local: INDT
 #include <stdio.h>
 
 int main(void)
-{long int number1, number2;
+{
+long int number1, number2;
      long int x, y, remainder;
      
      printf("Computation of the greatest common divisor.\n");
