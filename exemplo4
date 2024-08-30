@@ -1,0 +1,24 @@
+/******************************************************************************
+
+/* Autor: Saymon Andrade de Oliveira
+Data: 29/08/2024
+Modulo: Lógica de programaçâo 
+Curso: Eletrônica 4.0
+Local: INDT
+
+
+
+*******************************************************************************/
+
+#include<stdio.h>
+
+int main(void)
+{
+    int number1, number2, sum, difference;
+    printf("Enter 2 interger numbers: ");
+    scanf("%d%d%*c", &number1, &number2);
+    sum = number1 +number2;
+    difference = number1 - number2;
+    printf("\nThe sum equals %d, the difference equals %d.\n",sum, difference);
+    return 0;
+}
