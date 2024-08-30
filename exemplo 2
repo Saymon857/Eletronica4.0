@@ -1,0 +1,10 @@
+#include <stdio.h>
+
+int main(void)
+{
+    float km, miles;
+    miles = 10,0;
+    km = miles * 1.1609;
+    print("%f mile equale %f kilometer\n", miles, km)
+    return 0;
+}
