@@ -36,11 +36,11 @@ long int number1, number2;
      
      while (remainder != 0)
      {
-         remainder y % x;
+         remainder = y % x;
          y = x;
          x = remainder;
      }
      
-     printf("gcd(%ld, %ld") = % \n",number1, number2, y);
-     return o; 
+     printf("gcd(%ld, %ld) = %ld \n" ,number1, number2, y);
+     return 0; 
 }
