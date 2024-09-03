@@ -9,6 +9,7 @@ Local: INDT
 
 
 *******************************************************************************/
+4.1
 #include <stdio.h>
 
 int main(void)
@@ -19,3 +20,42 @@ int main(void)
    printf("O número escrito foi %hu ",numero);
    return 0;
 }
+obs:O maior número inteiro possivel é 65535
+/******************************************************************************
+
+Autor: Saymon Andrade de Oliveira
+Data: 02/09/2024
+Modulo: Lógica de programaçâo 
+Curso: Eletrônica 4.0
+Local: INDT
+
+
+
+*******************************************************************************/
+4.2
+#include <stdio.h>
+
+int main(void)
+{
+   int numero;
+   printf("Escreva um número inteiro: ");
+   scanf("%d", &numero);
+   printf("O número escrito foi %d ",numero);
+   return 0;   
+}
+Obs:O maior número possivel é
+/******************************************************************************
+
+Autor: Saymon Andrade de Oliveira
+Data: 02/09/2024
+Modulo: Lógica de programaçâo 
+Curso: Eletrônica 4.0
+Local: INDT
+
+
+
+*******************************************************************************/
+4.3
+#include <stdio.h>
+
+int main(void)
