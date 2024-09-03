@@ -1,0 +1,30 @@
+/******************************************************************************
+
+Autor: Saymon Andrade de Oliveira
+Data: 02/09/2024
+Modulo: Lógica de programaçâo 
+Curso: Eletrônica 4.0
+Local: INDT
+
+
+
+*******************************************************************************/
+#include <stdio.h>
+
+int main(void)
+{
+    int número;
+    printf("Insira um número: ");
+    scanf("%d", &número);
+    if (número % 2 == 0)
+    {
+        printf("%d é par", número);
+        
+    }
+    else
+    {
+        printf("%d é impar",número);
+        
+    }
+    return 0;
+}
