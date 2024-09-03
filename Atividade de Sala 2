@@ -21,6 +21,24 @@ int main(void)
      case 'a':
         printf(" Argentina");
         break;
+case 'B':
+    case 'b':
+        printf("Brasil");
+        break;
+    case 'h':
+    case 'H':
+        printf("Honduras");
+        break;
+    case 'm':
+    case 'M':
+        printf("México");
+    case 'P':
+    case 'p':
+        printf("Peru");
+        break;
+    default:
+        printf("País desconhecido");
+        break;
     return 0;
   }
   }
