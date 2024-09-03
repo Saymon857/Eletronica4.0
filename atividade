@@ -13,5 +13,9 @@ Local: INDT
 
 int main(void)
 {
- 
+   short int numero;
+   printf("Escreva um número inteiro: ");
+   scanf("%hu", &numero);
+   printf("O número escrito foi %hu ",numero);
+   return 0;
 }
