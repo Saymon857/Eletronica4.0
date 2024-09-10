@@ -1,0 +1,198 @@
+/******************************************************************************
+
+Autor: Saymon Andrade de Oliveira
+Data: 02/09/2024
+Modulo: Lógica de programaçâo 
+Curso: Eletrônica 4.0
+Local: INDT
+
+
+
+*******************************************************************************/
+4.1
+#include <stdio.h>
+
+int main(void)
+{
+   short int numero;
+   printf("Escreva um número inteiro: ");
+   scanf("%hu", &numero);
+   printf("O número escrito foi %hu ",numero);
+   return 0;
+}
+obs:O maior número inteiro possivel é 32767 e o menor é 32768.O maior numéro que inserido e imprimido corretamente é 65535
+//
+4.2
+#include <stdio.h>
+
+int main(void)
+{
+   int numero;
+   printf("Escreva um número inteiro: ");
+   scanf("%d", &numero);
+   printf("O número escrito foi %d ",numero);
+   return 0;   
+}
+
+//
+4.3
+#include <stdio.h>
+
+int main(void)
+{
+  int numero1,numero2;
+  printf("digite dois numeros inteiros: ");
+  scanf("%d%d*c",&numero1, &numero2);
+  printf("Os números inteiros são %d e %d",numero1,numero2);
+  return 0;  
+}
+//
+4.4
+#include <stdio.h>
+
+int main(void)
+{
+     int num1,num2,soma,produto;
+    printf("Escreva dois números: ");
+    scanf("%d%d",&num1,&num2);
+    soma = num1 + num2;
+    produto = num1 * num2;
+    printf("O produto dos dois numeros é %d e a soma dos mesmos é %d",produto,soma);
+    return 0;
+}
+//
+4.5
+#include <stdio.h>
+
+int main() {
+    int num1, num2, divisao_inteira, resto;
+    float quociente_total;
+
+    
+    printf("Insira dois números inteiros: ");
+    scanf("%d %d", &num1, &num2);
+    divisao_inteira = num1 / num2;
+    resto = num1 % num2;
+    quociente_total = (float)num1 / num2;
+
+    printf("Resultado da divisão inteira: %d\n", divisao_inteira);
+    printf("Resto da divisão: %d\n", resto);
+    printf("Quociente real: %.2f\n", quociente_total);
+
+    return 0;
+}
+Insira dois números inteiros: 81
+9
+Resultado da divisão inteira: 9
+Resto da divisão: 0
+Quociente real: 9.00
+//
+4.6
+#include <stdio.h>
+
+int main() 
+{
+    float num1, num2, quociente;
+ 
+    printf("Insira dois números reais: ");
+    scanf("%f %f", &num1, &num2);
+    quociente = num1 / num2;
+    printf("Quociente: %.20f\n", quociente);
+    return 0;
+}
+Insira dois números reais: 50
+5
+Quociente: 10.00000000000000000000
+//
+4.7
+#include <stdio.h>
+
+int main() {
+    int horas, minutos;
+    float segundos;
+
+    printf("Insira as horas (inteiro): ");
+    scanf("%d", &horas);
+
+    printf("Insira os minutos (inteiro): ");
+    scanf("%d", &minutos);
+
+    printf("Insira os segundos (pode ter casas decimais): ");
+    scanf("%f", &segundos);
+
+    printf("O horário inserido é: %d horas %d minutos e %.2f segundos\n", horas, minutos, segundos);
+
+    return 0;
+}
+Insira as horas (inteiro): 17
+Insira os minutos (inteiro): 45
+Insira os segundos (pode ter casas decimais): 24
+O horário inserido é: 17 horas 45 minutos e 24.00 segundos
+//
+4.8
+#include <stdio.h>
+#include <string.h>
+
+int main() 
+{
+    char nome[50], sobrenome[50];
+    printf("Insira o nome: ");
+    fgets(nome, sizeof(nome), stdin);
+    printf("Insira o sobrenome: ");
+    fgets(sobrenome, sizeof(sobrenome), stdin);
+    nome[strcspn(nome, "\n")] = '\0';
+    sobrenome[strcspn(sobrenome, "\n")] = '\0';
+    printf("Nome completo: %s %s\n", nome, sobrenome);
+    return 0;
+}
+Insira o nome: savio
+Insira o sobrenome: andrade
+Nome completo: savio andrade
+//
+4.9
+#include <stdio.h>
+
+#define PI 3.14159  
+
+int main() {
+    float raio, area;
+
+    printf("Insira o raio do círculo: ");
+    scanf("%f", &raio);
+    
+    area = PI * raio * raio;
+    
+    printf("A área do círculo é: %.2f\n", area);
+
+    return 0;
+}
+Insira o raio do círculo: 9
+A área do círculo é: 254.47
+//
+4.10
+#include <stdio.h>
+
+int main() 
+{
+    int total_segundos, dias, horas, minutos, segundos;
+
+    printf("Insira o número de segundos: ");
+    scanf("%d", &total_segundos);
+
+    dias = total_segundos / 86400; 
+    total_segundos = total_segundos % 86400;
+
+    horas = total_segundos / 3600; 
+    total_segundos = total_segundos % 3600;
+
+    minutos = total_segundos / 60; 
+    segundos = total_segundos % 60; 
+
+    printf("%d dia(s) %d hora(s) %d minuto(s) e %d segundo(s)\n", dias, horas, minutos, segundos);
+
+    return 0;
+}
+Insira o número de segundos: 123450
+1 dia(s) 10 hora(s) 17 minuto(s) e 30 segundo(s)
+//
+4.11
