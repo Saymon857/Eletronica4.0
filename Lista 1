@@ -64,10 +64,10 @@ int main(void)
 4.5
 #include <stdio.h>
 
-int main() {
+int main() 
+{
     int num1, num2, divisao_inteira, resto;
     float quociente_total;
-
     
     printf("Insira dois números inteiros: ");
     scanf("%d %d", &num1, &num2);
@@ -107,7 +107,8 @@ Quociente: 10.00000000000000000000
 4.7
 #include <stdio.h>
 
-int main() {
+int main() 
+{
     int horas, minutos;
     float segundos;
 
@@ -154,7 +155,8 @@ Nome completo: savio andrade
 
 #define PI 3.14159  
 
-int main() {
+int main() 
+{
     float raio, area;
 
     printf("Insira o raio do círculo: ");
@@ -196,3 +198,280 @@ Insira o número de segundos: 123450
 1 dia(s) 10 hora(s) 17 minuto(s) e 30 segundo(s)
 //
 4.11
+#include <stdio.h>
+
+int main() 
+{
+    int numero, soma = 0;
+    float media;
+
+    printf("Digite o primeiro numero: ");
+    scanf("%d", &numero);
+    soma += numero;
+
+    printf("Digite o segundo numero: ");
+    scanf("%d", &numero);
+    soma += numero;
+    
+    printf("Digite o terceiro numero: ");
+    scanf("%d", &numero);
+    soma += numero;
+    
+    printf("Digite o quarto numero: ");
+    scanf("%d", &numero);
+    soma += numero;
+    
+    printf("Digite quinto numero: ");
+    scanf("%d", &numero);
+    soma += numero;
+
+    media = (float)soma / 5;
+    printf("A media dos numeros e: %.2f\n", media);
+
+    return 0;
+}
+4.12
+#include <stdio.h>
+
+int main() 
+{
+    int valor, notas[] = {500, 200, 100, 50, 20, 10, 5, 2, 1};
+    int quantidade;
+
+    printf("Digite o valor em euros: ");
+    scanf("%d", &valor);
+
+    for (int i = 0; i < sizeof(notas) / sizeof(notas[0]); i++) {
+        quantidade = valor / notas[i];
+        valor %= notas[i];
+        printf("Notas de %d: %d\n", notas[i], quantidade);
+    }
+
+    return 0;
+}
+4.13
+#include <stdio.h>
+
+int main(void) {
+    float valor;
+    int valor_inteiro, valor_decimal, notas[] = {500, 200, 100, 50, 20, 10, 5, 1}, moedas[] = {50, 20, 10, 5, 2, 1};
+    int quantidade;
+
+    printf("Digite o valor em euros (ex: 13578.78): ");
+    scanf("%f", &valor);
+
+    valor_inteiro = (int)valor;
+    valor_decimal = (int)((valor - valor_inteiro) * 100);
+
+    printf("Notas:\n");
+    for (int i = 0; i < sizeof(notas) / sizeof(notas[0]); i++) {
+        quantidade = valor_inteiro / notas[i];
+        valor_inteiro %= notas[i];
+        printf("%d nota(s) de %d\n", quantidade, notas[i]);
+    }
+
+    printf("Moedas:\n");
+    for (int i = 0; i < sizeof(moedas) / sizeof(moedas[0]); i++) {
+        quantidade = valor_decimal / moedas[i];
+        valor_decimal %= moedas[i];
+        printf("%d moeda(s) de %d centavos\n", quantidade, moedas[i]);
+    }
+
+    return 0;
+}
+4.14
+#include <stdio.h>
+
+int main(void) 
+{
+    float U, R1, R2, I, V2;
+
+    printf("Digite a tensão total (U): ");
+    scanf("%f", &U);
+
+    printf("Digite o valor do primeiro resistor (R1): ");
+    scanf("%f", &R1);
+
+    printf("Digite o valor do segundo resistor (R2): ");
+    scanf("%f", &R2);
+
+    I = U / (R1 + R2);
+
+    V2 = I * R2;
+
+    printf("A corrente total (I) é: %.2f A\n", I);
+    printf("A tensão no segundo resistor (V2) é: %.2f V\n", V2);
+
+    return 0;
+}
+4.15
+#include <stdio.h>
+
+int main(void) 
+{
+    int numeros[6];
+    int i;
+
+    printf("Digite 6 números inteiros: ");
+    for (i = 0; i < 6; i++) {
+        scanf("%d", &numeros[i]);
+    }
+
+    printf("\n"); 
+
+    for (i = 0; i < 6; i++) {
+        printf("%d\t", numeros[i]); 
+        if ((i + 1) % 2 == 0) {
+            printf("\n"); 
+        }
+    }
+
+    return 0;
+}
+4.16
+#include <stdio.h>
+
+int main(void) 
+{
+    int numeros[6];
+    int i;
+
+    printf("Digite 6 números inteiros:\n");
+    for (i = 0; i < 6; i++) {
+        scanf("%d", &numeros[i]);
+    }
+
+    printf("-------------");
+    for (i = 0; i < 3; i++) {  
+        printf("\n| %d | %d |\n|-----------|", numeros[2*i], numeros[2*i+1]);
+    }
+    printf("-------------");
+
+    return 0;
+}
+4.17
+#include <stdio.h>
+
+int main() 
+{
+    float numeros[6];
+    int i;
+
+    printf("Digite 6 números reais:\n");
+    for (i = 0; i < 6; i++) {
+        scanf("%f", &numeros[i]);
+    }
+
+    printf("-------------");
+    for (i = 0; i < 3; i++) {
+        printf("\n| %.2f | %.2f |\n|-----------|", numeros[2*i], numeros[2*i+1]);
+    }
+    printf("-------------");
+
+    return 0;
+}
+4.18
+#include <stdio.h>
+
+int main() 
+{
+    char nome[50], sobrenome[50], rua[50], cidade[50];
+    int numero, cep;
+
+    printf("Digite seu nome completo: ");
+    scanf("%s %s", nome, sobrenome);
+
+    printf("Digite o nome da rua: ");
+    scanf("%s", rua);
+
+    printf("Digite o número da casa: ");
+    scanf("%d", &numero);
+
+    printf("Digite o CEP: ");
+    scanf("%d", &cep);
+
+    printf("Digite o nome da cidade: ");
+    scanf("%s", cidade);
+
+    printf("\n");  // Pula uma linha para formatação
+    printf("%s %s\n", sobrenome, nome);
+    printf("%s %d\n", rua, numero);
+    printf("%d %s\n", cep, cidade);
+
+    return 0;
+}
+4.19
+#include <stdio.h>
+
+int main() {
+    int numeroFatura, quantidade;
+    float precoUnitario, valorTotal;
+
+    printf("Digite o número da fatura: ");
+    scanf("%d", &numeroFatura);
+
+    printf("Digite o número de produtos pedidos: ");
+    scanf("%d", &quantidade);
+
+    printf("Digite o preço por unidade: ");
+    scanf("%f", &precoUnitario);
+
+    valorTotal = quantidade * precoUnitario;
+
+    printf("\n");
+    printf("NÚMERO DA FATURA\tPREÇO/UNIDADE\tTOTAL\n");
+    printf("%d\t\t%.2f\t\t%.2f\n", numeroFatura, precoUnitario, valorTotal);
+
+    return 0;
+}
+4.20
+#include <stdio.h>
+
+int main() {
+    int numero, invertido = 0, digito;
+
+    printf("Digite um número inteiro com 3 dígitos: ");
+    scanf("%d", &numero);
+
+    digito = numero % 10;  
+    invertido = invertido * 10 + digito;
+    numero /= 10;  
+
+    digito = numero % 10;
+    invertido = invertido * 10 + digito;
+    numero /= 10;
+
+    digito = numero % 10;
+    invertido = invertido * 10 + digito;
+
+    printf("O número invertido é: %d\n", invertido);
+
+    return 0;
+}
+4.21
+#include <stdio.h>
+
+int main() 
+{
+    int ano, a, b, c, d, e, n, p;
+
+    printf("Digite o ano: ");
+    scanf("%d", &ano);
+
+    a = ano % 19;
+    b = ano / 100;
+    c = ano % 100;
+    d = b / 4;
+    e = b % 4;
+    n = (a * 19 + b - d - e + 15) % 30;
+    p = (c / 4) + (c % 4) - (d + e + n) % 7 - 1;
+
+    if ((n + 11) % 30 < 19) {
+        printf("A Páscoa é em 22 de março de %d.\n", ano);
+    } else {
+        printf("A Páscoa é em %d de abril de %d.\n", (n + 11) % 30 + 19, ano);
+    }
+
+    return 0;
+}
+//
