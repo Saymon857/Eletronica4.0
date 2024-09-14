@@ -1,0 +1,259 @@
+8.1
+#include <stdio.h>
+
+void ler_nome(char nome[]) {
+    printf("Digite o nome: ");
+    fgets(nome, 100, stdin);
+}
+
+void imprimir_nome(char nome[]) {
+    printf("Nome: %s", nome);
+}
+
+int main() {
+    char nome[100];
+    ler_nome(nome);
+    imprimir_nome(nome);
+    return 0;
+}
+8.2
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char palavra1[100], palavra2[100], palavra3[100], frase[300];
+
+    printf("Digite a primeira palavra: ");
+    scanf("%s", palavra1);
+    printf("Digite a segunda palavra: ");
+    scanf("%s", palavra2);
+    printf("Digite a terceira palavra: ");
+    scanf("%s", palavra3);
+
+    strcpy(frase, palavra1);
+    strcat(frase, " ");
+    strcat(frase, palavra2);
+    strcat(frase, " ");
+    strcat(frase, palavra3);
+
+    printf("%s\n", frase);
+    return 0;
+}
+8.3
+#include <stdio.h>
+#include <string.h>
+
+int eh_palindromo(char palavra[]) {
+    int len = strlen(palavra);
+    for (int i = 0; i < len / 2; i++) {
+        if (palavra[i] != palavra[len - i - 1]) {
+            return 0; 
+        }
+    }
+    return 1; 
+}
+
+int main() {
+    char palavra[100];
+    printf("Digite uma palavra: ");
+    scanf("%s", palavra);
+
+    if (eh_palindromo(palavra)) {
+        printf("É um palíndromo\n");
+    } else {
+        printf("Não é um palíndromo\n");
+    }
+    return 0;
+}
+8.4
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+
+void remover_caracteres(char frase[], char frase_limpa[]) {
+    int j = 0;
+    for (int i = 0; frase[i] != '\0'; i++) {
+        if (isalnum(frase[i])) {
+            frase_limpa[j++] = tolower(frase[i]);
+        }
+    }
+    frase_limpa[j] = '\0';
+}
+
+int eh_palindromo_frase(char frase[]) {
+    char frase_limpa[1000];
+    remover_caracteres(frase, frase_limpa);
+
+    int len = strlen(frase_limpa);
+    for (int i = 0; i < len / 2; i++) {
+        if (frase_limpa[i] != frase_limpa[len - i - 1]) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int main() {
+    char frase[1000];
+    printf("Digite uma frase: ");
+    fgets(frase, 1000, stdin);
+
+    if (eh_palindromo_frase(frase)) {
+        printf("É um palíndromo\n");
+    } else {
+        printf("Não é um palíndromo\n");
+    }
+    return 0;
+}
+8.5
+#include <stdio.h>
+#include <string.h>
+
+int eh_palindromo_palavras(char frase[]) {
+    char *palavras[100], *palavra;
+    int i = 0, j;
+
+    palavra = strtok(frase, " ");
+    while (palavra != NULL) {
+        palavras[i++] = palavra;
+        palavra = strtok(NULL, " ");
+    }
+
+    for (j = 0; j < i / 2; j++) {
+        if (strcmp(palavras[j], palavras[i - j - 1]) != 0) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int main() {
+    char frase[1000];
+    printf("Digite uma frase: ");
+    fgets(frase, 1000, stdin);
+    frase[strcspn(frase, "\n")] = '\0'; // Remove o \n
+
+    if (eh_palindromo_palavras(frase)) {
+        printf("É um palíndromo baseado em palavras\n");
+    } else {
+        printf("Não é um palíndromo\n");
+    }
+    return 0;
+}
+8.6
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char frase[1000], *palavra;
+    printf("Digite uma frase: ");
+    fgets(frase, 1000, stdin);
+
+    palavra = strtok(frase, " ");
+    while (palavra != NULL) {
+        printf("%s\n", palavra);
+        palavra = strtok(NULL, " ");
+    }
+    return 0;
+}
+8.7
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char nome1[100], nome2[100];
+
+    printf("Digite o primeiro nome: ");
+    scanf("%s", nome1);
+    printf("Digite o segundo nome: ");
+    scanf("%s", nome2);
+
+    if (strcmp(nome1, nome2) < 0) {
+        printf("%s\n%s\n", nome1, nome2);
+    } else {
+        printf("%s\n%s\n", nome2, nome1);
+    }
+    return 0;
+}
+8.8
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char nomes[3][100];
+
+    printf("Digite o primeiro nome: ");
+    scanf("%s", nomes[0]);
+    printf("Digite o segundo nome: ");
+    scanf("%s", nomes[1]);
+    printf("Digite o terceiro nome: ");
+    scanf("%s", nomes[2]);
+
+    // Ordenação simples
+    for (int i = 0; i < 3 - 1; i++) {
+        for (int j = i + 1; j < 3; j++) {
+            if (strcmp(nomes[i], nomes[j]) > 0) {
+                char temp[100];
+                strcpy(temp, nomes[i]);
+                strcpy(nomes[i], nomes[j]);
+                strcpy(nomes[j], temp);
+            }
+        }
+    }
+
+    for (int i = 0; i < 3; i++) {
+        printf("%s\n", nomes[i]);
+    }
+
+    return 0;
+}
+8.9
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+void normalizar_nome(char nome[], char nome_normalizado[]) {
+    int j = 0;
+    for (int i = 0; nome[i] != '\0'; i++) {
+        if (isalnum(nome[i])) { 
+            nome_normalizado[j++] = toupper(nome[i]); 
+        }
+    }
+    nome_normalizado[j] = '\0'; 
+}
+
+int comparar_nomes(const void *a, const void *b) {
+    char nome1[100], nome2[100], nome1_normalizado[100], nome2_normalizado[100];
+
+    strcpy(nome1, *(const char **)a); 
+    strcpy(nome2, *(const char **)b); 
+
+    normalizar_nome(nome1, nome1_normalizado);
+    normalizar_nome(nome2, nome2_normalizado);
+
+    return strcmp(nome1_normalizado, nome2_normalizado);
+}
+
+int main() {
+    char *nomes[] = {
+        "O Neal",
+        "O’Neil",
+        "Mac Alastair",
+        "Orman",
+        "Macbride",
+        "mac Caba"
+        
+    };
+    
+    int total_nomes = sizeof(nomes) / sizeof(nomes[0]);
+
+    qsort(nomes, total_nomes, sizeof(char *), comparar_nomes);
+
+    printf("Nomes em ordem alfabética:\n");
+    for (int i = 0; i < total_nomes; i++) {
+        printf("%s\n", nomes[i]);
+    }
+
+    return 0;
+}
+
