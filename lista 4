@@ -11,7 +11,6 @@ int main() {
     seno = sin(angulo_graus * M_PI / 180.0);
     
     printf("O seno de %.2f graus é %.4f\n", angulo_graus, seno);
-    
     return 0;
 }
 6.2
