@@ -1,0 +1,33 @@
+#define led2 13
+
+
+void setup() {
+  // put your setup code here, to run once:
+    pinMode(led2, OUTPUT);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+   digitalWrite(led2, HIGH);
+    delay(500);
+    digitalWrite(led2, LOW);
+    delay(500);
+
+}
+//
+const int ciled = 13;
+const int ciButton = 2;
+int iButtonState = 0;
+void setup(){
+  pinMode(ciled, OUTPUT);
+  pinMode(ciButton, INPUT);
+}
+void loop(){
+  iButtonState = digitalRead(ciButton);
+  if(iButtonState == HIGH){
+    digitalWrite(ciled, HIGH);
+  }
+  else{
+    digitalWrite(ciled, LOW);
+  }
+}
