@@ -24,3 +24,36 @@ int timer = 0;
     digitalWrite(12, LOW);
   }
 //
+const int ledVermelho = 13;
+const int ledVerde = 11;
+const int ledAmarelo =12;
+
+void setup() {
+  pinMode(11, OUTPUT);
+  pinMode(12, OUTPUT);
+  pinMode(13, OUTPUT);
+}
+void loop() {
+  //Verde ligado
+  digitalWrite(11, HIGH);
+  delay(1000);
+  digitalWrite(11, LOW);
+  //amarelo ligado e piscando 
+    digitalWrite(12, HIGH);
+    delay(500);
+    digitalWrite(12, LOW);
+    delay(500);
+    digitalWrite(12, HIGH);
+    delay(500);
+    digitalWrite(12, LOW);
+    delay(500);
+    digitalWrite(12, HIGH);
+    delay(500);
+    digitalWrite(12, LOW);
+
+  //vermelho ligado
+  digitalWrite(13, HIGH);
+  delay(1000);
+  digitalWrite(13, LOW);
+
+}
