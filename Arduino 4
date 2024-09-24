@@ -1,0 +1,80 @@
+const int ledVermelho = 13;
+const int ledVerde = 11;
+const int ledAmarelo = 12;
+const int botao = 2;
+bool botaoPressionado = false;
+
+
+void setup() {
+  pinMode(11, OUTPUT);
+  pinMode(12, OUTPUT);
+  pinMode(13, OUTPUT);
+  pinMode(botao, INPUT_PULLUP);
+  
+
+}
+void loop() {
+
+  //Verde ligado
+  digitalWrite(11, HIGH);
+    
+    if (digitalRead(botao) == LOW) { // O botão está conectado a GND quando pressionado
+    delay(10000);
+      digitalWrite(11, LOW);
+  //amarelo ligado e piscando 
+    digitalWrite(12, HIGH);
+    delay(500);
+    digitalWrite(12, LOW);
+    delay(500);
+    digitalWrite(12, HIGH);
+    delay(500);
+    digitalWrite(12, LOW);
+    delay(500);
+    digitalWrite(12, HIGH);
+    delay(500);
+    digitalWrite(12, LOW);
+    delay(500);
+    digitalWrite(12, HIGH);
+    delay(500);
+    digitalWrite(12, LOW);
+    delay(500);
+    digitalWrite(12, HIGH);
+    delay(500);
+    digitalWrite(12, LOW);
+
+  //vermelho ligado
+  digitalWrite(13, HIGH);
+  delay(1000);
+  digitalWrite(13, LOW);
+    }
+    else (digitalRead(botao) == HIGH);{
+
+    delay(1000);
+    digitalWrite(11, LOW); // Aguarda 1 segundo para completar 30 segundos
+    digitalWrite(12, HIGH);
+    delay(500);
+    digitalWrite(12, LOW);
+    delay(500);
+    digitalWrite(12, HIGH);
+    delay(500);
+    digitalWrite(12, LOW);
+    delay(500);
+    digitalWrite(12, HIGH);
+    delay(500);
+    digitalWrite(12, LOW);
+    delay(500);
+    digitalWrite(12, HIGH);
+    delay(500);
+    digitalWrite(12, LOW);
+    delay(500);
+    digitalWrite(12, HIGH);
+    delay(500);
+    digitalWrite(12, LOW);
+
+  //vermelho ligado
+  digitalWrite(13, HIGH);
+  delay(1000);
+  digitalWrite(13, LOW);
+    }
+       
+}
