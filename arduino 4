@@ -1,0 +1,68 @@
+// Definir pinos para LEDs do semáforo
+const int ledVerde = 11;
+const int ledAmarelo = 12;
+const int ledVermelho = 13;
+
+// Definir pinos para o display de 7 segmentos (a -> g)
+const int segmentPins[] = {2, 3, 4, 5, 6, 7, 8}; // a, b, c, d, e, f, g (sem DP)
+
+// Padrões binários para números de 0 a 9 no display de 7 segmentos
+const byte numeros[] = {
+  0b00111111, // 0
+  0b00000110, // 1
+  0b01011011, // 2
+  0b01001111, // 3
+  0b01100110, // 4
+  0b01101101, // 5
+  0b01111101, // 6
+  0b00000111, // 7
+  0b01111111, // 8
+  0b01101111  // 9
+};
+
+// Função para mostrar o número no display de 7 segmentos
+void mostrarNumero(int numero) {
+  byte segmentos = numeros[numero]; // Obtém o padrão de segmentos
+  for (int i = 0; i < 8; i++) {
+    digitalWrite(segmentPins[i], bitRead(segmentos, i)); // Ativa os pinos corretos
+  }
+}
+
+// Função para contagem regressiva no display de 7 segmentos
+void contagemRegressiva(int tempo, int ledCor) {
+  for (int i = tempo; i >= 0; i--) {
+    mostrarNumero(i);    // Exibe o número atual no display
+    digitalWrite(ledCor, HIGH); // Liga o LED da cor correspondente
+    delay(1000);          // Espera 1 segundo
+  }
+  digitalWrite(ledCor, LOW); // Desliga o LED da cor correspondente ao fim da contagem
+}
+
+void setup() {
+  // Configurar os pinos dos LEDs como saídas
+  pinMode(ledVerde, OUTPUT);
+  pinMode(ledAmarelo, OUTPUT);
+  pinMode(ledVermelho, OUTPUT);
+  
+  // Configurar os pinos do display como saídas
+  for (int i = 0; i < 8; i++) {
+    pinMode(segmentPins[i], OUTPUT);
+  }
+
+  // Inicializar com todos os LEDs desligados
+  digitalWrite(ledVerde, LOW);
+  digitalWrite(ledAmarelo, LOW);
+  digitalWrite(ledVermelho, LOW);
+}
+
+void loop() {
+  // Ciclo do semáforo - Verde (9 segundos)
+  contagemRegressiva(9, ledVerde); // Exibe a contagem e acende o LED verde
+  
+  // Ciclo do semáforo - Amarelo (5 segundos)
+  contagemRegressiva(5, ledAmarelo); // Exibe a contagem e acende o LED amarelo
+  
+  // Ciclo do semáforo - Vermelho (9 segundos)
+  contagemRegressiva(9, ledVermelho); // Exibe a contagem e acende o LED vermelho
+}
+//
