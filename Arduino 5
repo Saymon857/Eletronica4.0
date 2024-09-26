@@ -1,0 +1,44 @@
+#include <Servo.h> // Biblioteca para o controle do servo
+
+// Definir os pinos para o joystick
+const int VRxPin = A0; // Pino VRx do joystick
+const int VRyPin = A1; // Pino VRy do joystick
+
+// Criar o objeto servo
+Servo myServo;
+
+// Pino do servo motor
+const int servoPin = 9;
+
+void setup() {
+  // Inicializar o servo no pino 9
+  myServo.attach(servoPin);
+  
+  // Definir a posição inicial do servo (90 graus - meio)
+  myServo.write(90);
+
+  // Iniciar a comunicação serial para depuração
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Ler a posição do joystick nos eixos X e Y
+  int xValue = analogRead(VRxPin);
+  int yValue = analogRead(VRyPin);
+
+  // Mapear o valor de X (de 0 a 1023) para o ângulo do servo (de 0 a 180 graus)
+  int servoAngle = map(xValue, 0, 1023, 0, 180);
+
+  // Mover o servo motor para o ângulo mapeado
+  myServo.write(servoAngle);
+
+  // Exibir os valores do joystick na Serial Monitor
+  Serial.print("X-axis: ");
+  Serial.print(xValue);
+  Serial.print("\tY-axis: ");
+  Serial.println(yValue);
+
+  // Pequeno atraso para suavizar a leitura do joystick
+  delay(15);
+}
+//
