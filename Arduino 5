@@ -42,3 +42,79 @@ void loop() {
   delay(15);
 }
 //
+#include <LiquidCrystal.h>
+
+// Inicializar o LCD (DB7 a DB4 nos pinos 0 a 3; RS no pino 10, E no pino 11)
+LiquidCrystal lcd(12, 11, 3, 2, 1, 0);
+
+// Definir os pinos dos LEDs
+const int ledVermelhoPed = 4;  // Vermelho para pedestres
+const int ledAmareloPed = 5;   // Amarelo para pedestres
+const int ledAzulPed = 6;      // Azul (verde) para pedestres
+
+const int ledAzulCar = 7;      // Azul (verde) para carros
+const int ledAmareloCar = 8;   // Amarelo para carros
+const int ledVermelhoCar = 9;  // Vermelho para carros
+
+void setup() {
+  // Inicializar o display LCD
+  lcd.begin(16, 2);  // Configura o LCD com 16 colunas e 2 linhas
+  
+  // Definir os pinos dos LEDs como saída
+  pinMode(ledVermelhoPed, OUTPUT);
+  pinMode(ledAmareloPed, OUTPUT);
+  pinMode(ledAzulPed, OUTPUT);
+
+  pinMode(ledAzulCar, OUTPUT);
+  pinMode(ledAmareloCar, OUTPUT);
+  pinMode(ledVermelhoCar, OUTPUT);
+}
+
+void loop() {
+  // Semáforo para veículos verde, pedestres vermelho
+  digitalWrite(ledVermelhoPed, HIGH);  // Pedestres: vermelho
+  digitalWrite(ledAzulCar, HIGH);      // Veículos: azul (verde)
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Carros podem ir");
+  lcd.setCursor(0, 1);
+  lcd.print("Pedestres, aguardem");
+  delay(5000);
+
+  // Semáforo para veículos amarelo
+  digitalWrite(ledAzulCar, LOW);       // Veículos: azul (verde) desliga
+  digitalWrite(ledAmareloCar, HIGH);   // Veículos: amarelo
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Carros, atencao");
+  lcd.setCursor(0, 1);
+  lcd.print("Sinal prestes a fechar");
+  delay(2000);
+
+  // Semáforo para veículos vermelho, pedestres verde
+  digitalWrite(ledAmareloCar, LOW);    // Veículos: amarelo desliga
+  digitalWrite(ledVermelhoCar, HIGH);  // Veículos: vermelho
+  digitalWrite(ledAzulPed, HIGH);      // Pedestres: azul (verde)
+  digitalWrite(ledVermelhoPed, LOW);   // Pedestres: vermelho desliga
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Pedestres, podem ir");
+  lcd.setCursor(0, 1);
+  lcd.print("Cuidado, sinal a fechar");
+  delay(5000);
+
+  // Semáforo para pedestres amarelo
+  digitalWrite(ledAzulPed, LOW);       // Pedestres: azul (verde) desliga
+  digitalWrite(ledAmareloPed, HIGH);   // Pedestres: amarelo
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Pedestres, atencao");
+  delay(2000);
+
+  // Voltar ao início do ciclo
+  digitalWrite(ledAmareloPed, LOW);    // Pedestres: amarelo desliga
+  digitalWrite(ledVermelhoPed, HIGH);  // Pedestres: vermelho
+  digitalWrite(ledVermelhoCar, LOW);   // Veículos: vermelho desliga
+  digitalWrite(ledAzulCar, HIGH);      // Veículos: azul (verde)
+  delay(5000);
+}
