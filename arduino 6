@@ -64,3 +64,62 @@ void loop() {
   // Atraso de 500ms antes de fazer a próxima leitura
   delay(500);
 }
+//
+#include <DHT.h>
+#include <LiquidCrystal.h>
+
+// Configurações do sensor DHT11
+#define DHTPIN 8      // Pino onde o DHT está conectado (agora no pino 8)
+#define DHTTYPE DHT11 // Definindo o tipo de sensor
+
+DHT dht(DHTPIN, DHTTYPE);
+
+// Configurações do LCD (pinos de controle RS, E, D4, D5, D6, D7)
+LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
+
+// Definindo o pino do potenciômetro (ligado a um pino analógico)
+int potPin = A0;
+
+void setup() {
+  // Inicializando o LCD
+  lcd.begin(16, 2);  // Definindo LCD com 16 colunas e 2 linhas
+  lcd.print("Iniciando...");
+
+  // Inicializando o sensor DHT11
+  dht.begin();
+  
+  delay(2000);  // Pequena pausa para inicialização
+}
+
+void loop() {
+  // Lendo a posição do potenciômetro para ajustar o contraste
+  int potValue = analogRead(potPin);  // Lê o valor do potenciômetro (0-1023)
+  int contraste = map(potValue, 0, 1023, 0, 255);  // Mapeia o valor para o ajuste de contraste
+  
+  // Envia o valor do contraste para o pino VO do LCD (geralmente conectado via potenciômetro)
+  analogWrite(potPin, contraste);
+
+  // Leitura da temperatura e umidade do sensor DHT11
+  float humidity = dht.readHumidity();
+  float temperature = dht.readTemperature();
+
+  // Verificando se a leitura é válida
+  if (isnan(humidity) || isnan(temperature)) {
+    lcd.clear();
+    lcd.print("Erro leitura");
+  } else {
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Temp: ");
+    lcd.print(temperature);
+    lcd.print("C");
+    
+    lcd.setCursor(0, 1);
+    lcd.print("Umid: ");
+    lcd.print(humidity);
+    lcd.print("%");
+  }
+
+  delay(2000);  // Atualiza a cada 2 segundos
+}
+//
