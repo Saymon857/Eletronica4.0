@@ -1,0 +1,66 @@
+#define TRIG_PIN 5   // Pino do Trigger do sensor ultrassônico
+#define ECHO_PIN 6   // Pino do Echo do sensor ultrassônico
+
+#define LED_VERDE 2   // Pino do LED verde
+#define LED_AMARELO 3 // Pino do LED amarelo
+#define LED_VERMELHO 4 // Pino do LED vermelho
+
+long duracao;
+int distancia;
+
+void setup() {
+  // Configurando os pinos do sensor ultrassônico
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
+
+  // Configurando os pinos dos LEDs
+  pinMode(LED_VERDE, OUTPUT);
+  pinMode(LED_AMARELO, OUTPUT);
+  pinMode(LED_VERMELHO, OUTPUT);
+
+  // Iniciando a comunicação serial para debug
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Enviando um pulso de 10µs no Trigger para iniciar a medição
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+
+  // Calculando o tempo de resposta do Echo
+  duracao = pulseIn(ECHO_PIN, HIGH);
+
+  // Calculando a distância em centímetros (velocidade do som = 343 m/s)
+  distancia = duracao * 0.034 / 2;
+
+  // Exibindo a distância medida no monitor serial
+  Serial.print("Distancia: ");
+  Serial.print(distancia);
+  Serial.println(" cm");
+
+  // Definindo o estado dos LEDs com base na distância
+  if (distancia < 15) {
+    // Verde: Distância menor que 15 cm
+    digitalWrite(LED_VERDE, HIGH);
+    digitalWrite(LED_AMARELO, LOW);
+    digitalWrite(LED_VERMELHO, LOW);
+  } 
+  else if (distancia >= 15 && distancia < 30) {
+    // Amarelo: Distância entre 15 cm e 30 cm
+    digitalWrite(LED_VERDE, LOW);
+    digitalWrite(LED_AMARELO, HIGH);
+    digitalWrite(LED_VERMELHO, LOW);
+  } 
+  else {
+    // Vermelho: Distância maior que 30 cm
+    digitalWrite(LED_VERDE, LOW);
+    digitalWrite(LED_AMARELO, LOW);
+    digitalWrite(LED_VERMELHO, HIGH);
+  }
+
+  // Atraso de 500ms antes de fazer a próxima leitura
+  delay(500);
+}
