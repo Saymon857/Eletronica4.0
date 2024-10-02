@@ -1,0 +1,428 @@
+#include <LiquidCrystal.h>
+#include <DHT.h>
+#include <Wire.h>
+
+
+// Definições do sensor DHT
+#define DHTPIN 7
+#define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
+
+// Definições do LCD (RS, E, D4, D5, D6, D7)
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+// Definições do sensor ultrassônico
+#define trigPin 9
+#define echoPin 10
+
+// Definições dos LEDs (Semáforo)
+#define ledVerde 6
+#define ledAmarelo 8
+#define ledVermelho 13
+
+// Definições dos botões
+#define buttonMenu 0
+#define buttonConfirm 1
+
+
+
+void setup() {
+  // Inicializa o LCD
+  lcd.begin(16, 2);
+  lcd.print("Menu Inicial");
+
+  // Inicializa o sensor DHT
+  dht.begin();
+
+  // Inicializa os pinos do sensor ultrassônico
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+
+  // Inicializa os LEDs
+  pinMode(ledVerde, OUTPUT);
+  pinMode(ledAmarelo, OUTPUT);
+  pinMode(ledVermelho, OUTPUT);
+
+  // Inicializa os botões
+  pinMode(buttonMenu, INPUT_PULLUP);     // Usa resistores internos para manter HIGH enquanto não pressionado
+  pinMode(buttonConfirm, INPUT_PULLUP);  // Usa resistores internos para manter HIGH enquanto não pressionado
+
+  // Delay inicial para estabilizar
+  delay(1000);
+  lcd.clear();
+  showMenu();
+}
+
+// Função para exibir o menu no LCD
+void showMenu() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Opcao: ");
+  switch (menuOption) {
+    case 0:
+      lcd.print("Semaforo");
+      break;
+    case 1:
+      lcd.print("Ultrassonico");
+      break;
+    case 2:
+      lcd.print("LCD");
+      break;
+    case 3:
+      lcd.print("Umidade");
+      break;
+  }
+}
+
+
+// Função para confirmar a escolha
+void confirmOption() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  switch (menuOption) {
+    case 0:
+      lcd.print("Iniciando");
+      lcd.setCursor(0, 1);
+      lcd.print("Semaforo...");
+      startTrafficLight();
+      break;
+    case 1:
+      lcd.print("Iniciando");
+      lcd.setCursor(0, 1);
+      lcd.print("Ultrassonico...");
+      displayUltrasonic();
+      break;
+    case 2:
+      lcd.print("Iniciando");
+      lcd.setCursor(0, 1);
+      lcd.print("LCD Test...");
+      testLCD();
+      break;
+    case 3:
+      lcd.print("Iniciando");
+      lcd.setCursor(0, 1);
+      lcd.print("Umidade...");
+      displayHumidity();
+      break;
+  }
+}
+
+// Função para controlar o semáforo
+void startTrafficLight() {
+  digitalWrite(ledVerde, HIGH);     // Liga o LED verde
+  delay(5000);                      // Espera 5 segundos
+  digitalWrite(ledVerde, LOW);      // Desliga o LED verde
+  digitalWrite(ledAmarelo, HIGH);   // Liga o LED amarelo
+  delay(2000);                      // Espera 2 segundos
+  digitalWrite(ledAmarelo, LOW);    // Desliga o LED amarelo
+  digitalWrite(ledVermelho, HIGH);  // Liga o LED vermelho
+  delay(5000);                      // Espera 5 segundos
+  digitalWrite(ledVermelho, LOW);   // Desliga o LED vermelho
+}
+
+// Função para exibir a distância medida pelo sensor ultrassônico
+void displayUltrasonic() {
+  long duration, distance;
+
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  duration = pulseIn(echoPin, HIGH);
+  distance = (duration * 0.0343) / 2;
+
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Distancia: ");
+  lcd.print(distance);
+  lcd.print(" cm");
+  delay(2000);
+}
+
+// Função de teste do LCD
+void testLCD() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Testando LCD...");
+  delay(2000);
+}
+
+// Função para exibir a umidade medida pelo sensor DHT11
+void displayHumidity() {
+  float h = dht.readHumidity();
+
+  if (isnan(h)) {
+    lcd.setCursor(0, 0);
+    lcd.print("Erro no sensor");
+  } else {
+    lcd.setCursor(0, 0);
+    lcd.print("Umidade: ");
+    lcd.print(h);
+    lcd.print(" %");
+  }
+  delay(2000);
+}
+
+LiquidCrystal_I2C lcd(0x27, 16, 2); // Endereço I2C do LCD
+
+
+void setup() {
+  lcd.init();
+  lcd.backlight();
+  
+  pinMode(botaoSim, INPUT_PULLUP);
+  pinMode(botaoNao, INPUT_PULLUP);
+  
+  atualizarMenu();
+}
+
+void loop() {
+
+  if (digitalRead(botaoSim) == LOW) {
+    executarOpcao();
+    delay(300); // debounce simples
+  }
+
+  if (digitalRead(botaoNao) == LOW) {
+    mudarOpcao();
+    delay(300); // debounce simples
+  }
+  
+  
+}
+
+void mudarOpcao() {
+  opcaoAtual = (opcaoAtual + 1) % numOpcoes;
+  atualizarMenu();
+}
+
+void atualizarMenu() {
+  lcd.clear();
+  switch (opcaoAtual) {
+    case 0:
+      lcd.print("1.Circuito LCD");
+      break;
+    case 1:
+      lcd.print("2. Semaforo");
+      break;
+    case 2:
+      lcd.print("3. Distancia");
+      break;
+    case 3:
+      lcd.print("4. Temp/Umid");
+      break;
+  }
+}
+
+void executarOpcao() {
+  lcd.clear();
+  switch (opcaoAtual) {
+    case 0:
+      lcd.print("Executar LCD");
+      break;
+    case 1:
+      lcd.print("Semaforo Intelig");
+      break;
+    case 2:
+      lcd.print("Sonar");
+      break;
+    case 3:
+      lcd.print("Temp/Umid");
+      break;
+  }
+  delay(10000);  // Mostrar mensagem de execução por 1 segundo
+  atualizarMenu(); // Voltar ao menu
+}
+//
+#include <LiquidCrystal.h>
+#include <DHT.h>
+
+// Definições do sensor DHT
+#define DHTPIN 7
+#define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
+
+// Definições do LCD (RS, E, D4, D5, D6, D7)
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+// Definições do sensor ultrassônico
+#define trigPin 9
+#define echoPin 10
+
+// Definições dos LEDs (Semáforo)
+#define ledVerde 6
+#define ledAmarelo 8
+#define ledVermelho 13
+
+// Definições dos botões
+#define buttonMenu 0
+#define buttonConfirm 1
+
+int menuOption = 0;  // Variável para rastrear a opção atual do menu
+int maxOptions = 4;  // Total de opções no menu
+
+void setup() {
+  // Inicializa o LCD
+  lcd.begin(16, 2);
+  lcd.print("Menu Inicial");
+
+  // Inicializa o sensor DHT
+  dht.begin();
+
+  // Inicializa os pinos do sensor ultrassônico
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+
+  // Inicializa os LEDs
+  pinMode(ledVerde, OUTPUT);
+  pinMode(ledAmarelo, OUTPUT);
+  pinMode(ledVermelho, OUTPUT);
+
+  // Inicializa os botões
+  pinMode(buttonMenu, INPUT_PULLUP);     // Usa resistores internos para manter HIGH enquanto não pressionado
+  pinMode(buttonConfirm, INPUT_PULLUP);  // Usa resistores internos para manter HIGH enquanto não pressionado
+
+  // Delay inicial para estabilizar
+  delay(1000);
+  lcd.clear();
+  showMenu();
+}
+
+// Função para exibir o menu no LCD
+void showMenu() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Opcao: ");
+  switch (menuOption) {
+    case 0:
+      lcd.print("Semaforo");
+      break;
+    case 1:
+      lcd.print("Ultrassonico");
+      break;
+    case 2:
+      lcd.print("LCD");
+      break;
+    case 3:
+      lcd.print("Umidade");
+      break;
+  }
+}
+
+
+// Função para confirmar a escolha
+void confirmOption() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  switch (menuOption) {
+    case 0:
+      lcd.print("Iniciando");
+      lcd.setCursor(0, 1);
+      lcd.print("Semaforo...");
+      startTrafficLight();
+      break;
+    case 1:
+      lcd.print("Iniciando");
+      lcd.setCursor(0, 1);
+      lcd.print("Ultrassonico...");
+      displayUltrasonic();
+      break;
+    case 2:
+      lcd.print("Iniciando");
+      lcd.setCursor(0, 1);
+      lcd.print("LCD Test...");
+      testLCD();
+      break;
+    case 3:
+      lcd.print("Iniciando");
+      lcd.setCursor(0, 1);
+      lcd.print("Umidade...");
+      displayHumidity();
+      break;
+  }
+}
+
+// Função para controlar o semáforo
+void startTrafficLight() {
+  digitalWrite(ledVerde, HIGH);     // Liga o LED verde
+  delay(5000);                      // Espera 5 segundos
+  digitalWrite(ledVerde, LOW);      // Desliga o LED verde
+  digitalWrite(ledAmarelo, HIGH);   // Liga o LED amarelo
+  delay(2000);                      // Espera 2 segundos
+  digitalWrite(ledAmarelo, LOW);    // Desliga o LED amarelo
+  digitalWrite(ledVermelho, HIGH);  // Liga o LED vermelho
+  delay(5000);                      // Espera 5 segundos
+  digitalWrite(ledVermelho, LOW);   // Desliga o LED vermelho
+}
+
+// Função para exibir a distância medida pelo sensor ultrassônico
+void displayUltrasonic() {
+  long duration, distance;
+
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  duration = pulseIn(echoPin, HIGH);
+  distance = (duration * 0.0343) / 2;
+
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Distancia: ");
+  lcd.print(distance);
+  lcd.print(" cm");
+  delay(2000);
+}
+
+// Função de teste do LCD
+void testLCD() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Testando LCD...");
+  delay(2000);
+}
+
+// Função para exibir a umidade medida pelo sensor DHT11
+void displayHumidity() {
+  float h = dht.readHumidity();
+
+  if (isnan(h)) {
+    lcd.setCursor(0, 0);
+    lcd.print("Erro no sensor");
+  } else {
+    lcd.setCursor(0, 0);
+    lcd.print("Umidade: ");
+    lcd.print(h);
+    lcd.print(" %");
+  }
+  delay(2000);
+}
+
+void loop() {
+  // Verifica se o botão de menu foi pressionado
+  if (digitalRead(buttonMenu) == LOW) {
+    menuOption++;  // Incrementa a opção
+    if (menuOption >= maxOptions) {
+      menuOption = 0;  // Reinicia o contador se atingir o limite
+    }
+    showMenu();  // Mostra a opção atual no LCD
+    delay(1000);  // Pequeno delay para evitar múltiplas leituras
+  if (digitalRead(buttonConfirm) == LOW) {
+    confirmOption();  // Confirma a opção e executa o circuito correspondente
+    delay(5000);       // Pequeno delay para evitar múltiplas leituras
+  }  
+  }
+  
+
+
+  }
+
+  
+
+
+  
+
